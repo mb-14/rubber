@@ -1,4 +1,5 @@
 #include "util.h"
+
 using namespace std;
 
 GLuint loadTexture( const char * filename,int width,int height){
@@ -65,4 +66,38 @@ void printText(int x, int y, float r, float g, float b, float size, const char *
   glPopMatrix();
  
   
+}
+
+
+
+ALuint source[3];
+ALint source_state[3];
+
+void soundInit(int argc, char **argv){
+ 		alutInit(0, NULL);
+    // Capture errors
+    alGetError();
+		alGenSources(3, source);
+	}
+
+
+ALuint loadWAV(const char* filename){
+	ALuint buffer = alutCreateBufferFromFile(filename);
+	return buffer;
+}
+
+
+
+void playWAVTask(ALuint buffer, int index){
+	alSourcei(source[index], AL_BUFFER, buffer);
+	alSourcePlay(source[index]);
+	alGetSourcei(source[index], AL_SOURCE_STATE, &source_state[index]);
+
+	while (source_state[index] == AL_PLAYING) {
+		alGetSourcei(source[index], AL_SOURCE_STATE, &source_state[index]);
+	}
+}
+
+void playWAV(ALuint buffer, int index){
+  thread(playWAVTask, buffer, index).detach();
 }

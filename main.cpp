@@ -1,4 +1,3 @@
-#include "util.h"
 #include "game.h"
 
 using namespace std;
@@ -14,8 +13,10 @@ void user_input(unsigned char,int, int);
 void loadTextures();
 GLuint loadTexture(const char * filename,int width, int height);
 GLuint background,rubber,pipe,ground;
+
 int main(int argc, char **argv) {
     glutInit(&argc, argv);
+    soundInit(argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(window_width,window_height);
     glutCreateWindow("Rubber");
@@ -30,6 +31,7 @@ int main(int argc, char **argv) {
     enable2D(window_width, window_height);
     glColor3f(1.0f, 1.0f, 1.0f);
     game = new Game();
+    game->loadWAVs();
     game->newGame();
     loadTextures();
     // start the whole thing
@@ -37,6 +39,7 @@ int main(int argc, char **argv) {
     
     return 0;
 }
+
 
 void loadTextures(){
 	background = loadTexture("res/background.bmp",349,388);

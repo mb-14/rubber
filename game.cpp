@@ -16,16 +16,24 @@ void Game::newGame(){
 	pipe_x[1]=1400;
 	pipe_x_max = pipe_x[2] = 1700;
 	}
+
+void Game::loadWAVs(){
+	bading = loadWAV("res/bading.wav");
+	smack = loadWAV("res/smack.wav");
+	flap = loadWAV("res/flap.wav");
+}
 	
 void Game::update(){
 	 
      if(x1<-1000){
      x1=990;
      score++;
+     playWAV(bading,0);	
      }
     if(x2<-1000)
      {x2=990;
-      score++;	
+      score++;
+      playWAV(bading,0);	
      }  
      if(angle<-360)
       angle=0; 
@@ -38,11 +46,14 @@ void Game::update(){
     		pipe_x_max = pipe_x[i];
     	}
     	if(collision(i)){
+    	   playWAV(smack,1);
     	   gameOver = true;
     	   return;
     	   }
     }
     if(jump==true){
+    	if(t<=0.4)
+    		playWAV(flap,2);
     	t+=0.4;
     	y = u_y*t-(g_y*t*t/2);
     	if(t>=10){

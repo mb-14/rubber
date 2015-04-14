@@ -1,10 +1,12 @@
 #ifndef GAME_H    
 #define GAME_H
 #include <random>
+#include "util.h"
 using namespace std;
 class Game{
 
 	public:
+	GLuint bading,flap,smack;
 	float x1,x2,y,angle;
 	float pipe_x[3];
 	float pipe_x_max;
@@ -22,6 +24,7 @@ class Game{
 	bool collision(int);
 	void saveHighScore();
 	int getHighScore();
+	void loadWAVs();
 };
 
 #endif
