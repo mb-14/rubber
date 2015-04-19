@@ -10,6 +10,7 @@ class Game{
 	float x1,x2,y,angle;
 	float pipe_x[3];
 	float pipe_x_max;
+	bool pass_pipe[3];
 	bool gameOver;
 	int score,highscore;
 	float t; //Jump time

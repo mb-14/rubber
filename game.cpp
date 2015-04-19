@@ -15,6 +15,7 @@ void Game::newGame(){
 	pipe_x[0]=1000;
 	pipe_x[1]=1400;
 	pipe_x_max = pipe_x[2] = 1700;
+	pass_pipe[0] = pass_pipe[1] = pass_pipe[2] = false; 
 	}
 
 void Game::loadWAVs(){
@@ -25,25 +26,26 @@ void Game::loadWAVs(){
 	
 void Game::update(){
 	 
-     if(x1<-1000){
-     x1=990;
-     score++;
-     playWAV(bading,0);	
-     }
+     if(x1<-1000)
+     		x1=990;
     if(x2<-1000)
-     {x2=990;
-      score++;
-      playWAV(bading,0);	
-     }  
+     		x2=990;
      if(angle<-360)
       angle=0; 
     
      for(int i=0;i<3;i++){
+    	if(pipe_x[i] <= 60 && !pass_pipe[i])
+    	{
+    		pass_pipe[i] = true;
+    		score++;
+     		playWAV(bading,0);	
+    	}
     	if(pipe_x[i]<-40){
     		do{
     	 		pipe_x[i]=distr(rd);
     		}while(pipe_x[i]-pipe_x_max<pipe_min_diff);
     		pipe_x_max = pipe_x[i];
+    		pass_pipe[i] = false;
     	}
     	if(collision(i)){
     	   playWAV(smack,1);

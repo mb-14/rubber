@@ -1,5 +1,7 @@
+CFLAGS =-std=c++11
+LDFLAGS=-lopenal -lalut -lGL -lglut -lGLU -pthread
 all:
-	g++ main.cpp util.cpp game.cpp -lopenal -lalut -lGL -lglut -lGLU -pthread -std=c++11 -o rubber
+	g++ $(CFLAGS) main.cpp util.cpp game.cpp $(LDFLAGS) -o rubber 
 
 clean:
 	rm rubber	
